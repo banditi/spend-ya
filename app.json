@@ -1,8 +1,7 @@
 {
-  "name": "Python on Heroku example",
-  "description": "A barebones Python app, which can easily be deployed to Heroku.",
-  "image": "heroku/python",
-  "repository": "https://github.com/heroku/python-getting-started",
-  "keywords": ["python", "django" ],
+  "name": "Spend Your Money Less",
+  "description": "Telegram bot for Ya.Money.",
+  "repository": "https://github.com/banditi/spend-ya",
+  "keywords": ["python", "django", "yandex" ],
   "addons": [ "heroku-postgresql" ]
 }
