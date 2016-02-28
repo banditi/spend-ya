@@ -6,6 +6,13 @@ P.S. Please, **do not tell him** that he is just a bot, he will never forgive yo
 
 ## Running locally
 
+Before running locally copy `config.example.py` from `spend_ya_project` into new file `config.py` and add your information:
+
+```sh
+cd spend_ya_project
+cp config.example.py config.py
+```
+
 For running an application locally you could use of of these commands:
 
 ```sh
