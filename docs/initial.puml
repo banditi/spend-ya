@@ -1,0 +1,23 @@
+@startuml
+start
+
+:Новый пользователь;
+note right
+    command: __/start__
+end note
+
+:Hello, user! I can help you;
+if (Do you want add Ya.Money?) then (Yes)
+    :Отправляем ссылку на авторизацию в Ya.Money;
+    ->Пользователь проходит авторизацию
+    на стороне Ya.Money;
+    :Показываем ссылку на чат
+    и пишем ему в чате об успехе;
+else (No)
+endif
+:Показываем допустимые команды
+для отправления трат;
+:Общение c ботом;
+
+stop
+@enduml
