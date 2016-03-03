@@ -13,22 +13,16 @@ import os
 import dj_database_url
 
 try:
-    from config import DATABASE_URL, SECRET_KEY
+    from config import DATABASE_URL, SECRET_KEY, DEBUG
 except ImportError:
+    DEBUG = os.environ.get('DEBUG', False)
     DATABASE_URL = ''
-    SECRET_KEY = os.environ['SECRET_KEY']
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'secret')
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 
 # Application definition

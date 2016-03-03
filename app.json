@@ -3,5 +3,17 @@
   "description": "Telegram bot for Ya.Money.",
   "repository": "https://github.com/banditi/spend-ya",
   "keywords": ["python", "django", "yandex" ],
-  "addons": [ "heroku-postgresql" ]
+  "addons": [ "heroku-postgresql" ],
+  "env": {
+    "DEBUG": "True",
+    "SECRET_KEY": {
+      "generator": "secret"
+    },
+    "TELEGRAM_TOKEN_ID": {
+      "required": true
+    }
+  },
+  "scripts": {
+    "postdeploy": "python manage.py migrate"
+  }
 }

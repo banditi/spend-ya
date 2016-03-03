@@ -1,0 +1,23 @@
+language: python
+python:
+  - "2.7"
+
+services: postgresql
+
+env:
+  - DEBUG=True SECRET_KEY=secret DATABASE_URL=postgres://postgres@localhost/travis_ci_test
+
+install:
+  - make pip
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - python manage.py migrate
+
+script:
+  - make validate
+
+branches:
+  only:
+    - master
+    - dev

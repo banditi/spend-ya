@@ -1,32 +1,41 @@
 #!/bin/bash
 # heroku create
-ACTIVATE_VIRT=""
-OS=$1
-echo $OS
-if [ $OS != "Win" ] && [ $OS != "Linux" ] && [ $OS != "OSX" ]
+OS=$( uname -s )
+if [[ -z ${OS} ]];
 then
-    printf  "Please, type name of your OS from one of the following: OSX, Win or Linux \n NOTE: input argument is case-sensitive!"
-    exit
-fi
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-ROOT_APP_DIR="$( cd "$( cd ../..)" && pwd )"
-
-RESULT=$( virtualenv --version)
-echo "Virtualenv has $RESULT version"
-if [ $RESULT ]
-then
-    virtualenv venv;
-    case "$OS" in 
-        "OSX" ) $( source venv/bin/activate );;
-        "Linux" ) $( source venv/bin/activate );;
-        "Win" ) $( venv/Scripts/activate.bat );;
-    esac
-        
+    echo "Sorry, but we cannot get your OS."
+    echo "Let's try the virtual environment by yourself."
+    return 1;
 else
-    echo "Install virtualenv please"
+    echo "Your OS: ${OS}"
 fi
 
-pip install -r requirements.txt;
+# Add git-hook
+$( ln -fs ../../tools/scripts/pre-commit.sh .git/hooks/pre-commit )
+$( chmod +x .git/hooks/pre-commit )
 
-printf "Setup of evnironment is finished"
+RESULT=$( virtualenv --version )
+if [ ${RESULT} ]
+then
+    echo "Virtualenv has $RESULT version"
+    virtualenv venv;
+else
+    echo "Installing virtualenv."
+    pip install virtualenv
+fi
+
+echo "To activate the virtual environment run following command:"
+case ${OS} in
+    Darwin*|Linux*)
+        echo ">> . venv/bin/activate"
+        ;;
+    CYGWIN*|MSYS*)
+        echo ">> venv/Scripts/activate.bat"
+        ;;
+    MINGW32*)
+        echo ">> . venv/Scripts/activate"
+        ;;
+    *)
+        echo ">> Try googling... :("
+        ;;
+esac
