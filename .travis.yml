@@ -5,7 +5,7 @@ python:
 services: postgresql
 
 env:
-  - DEBUG=True SECRET_KEY=secret DATABASE_URL=postgres://postgres@localhost/travis_ci_test
+  - DATABASE_URL=postgres://postgres@localhost/travis_ci_test
 
 install:
   - make pip

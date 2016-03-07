@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^money/', include('spend_ya_money.urls')),
     # url(r'^db', spend_ya_telegram.views.db, name='db'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^telehook$', spend_ya_telegram.views.telehook)
 ]
