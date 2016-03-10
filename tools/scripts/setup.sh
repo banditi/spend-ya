@@ -32,7 +32,7 @@ case ${OS} in
     CYGWIN*|MSYS*)
         echo ">> venv/Scripts/activate.bat"
         ;;
-    MINGW32*)
+    MINGW*)
         echo ">> . venv/Scripts/activate"
         ;;
     *)

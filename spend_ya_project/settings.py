@@ -35,7 +35,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'spend_ya_telegram',
-    'spend_ya_money'
+    'spend_ya_money',
 )
 
 MIDDLEWARE_CLASSES = (
