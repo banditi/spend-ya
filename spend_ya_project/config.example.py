@@ -11,3 +11,6 @@ MONEY_REDIRECT_URI = 'REDIRECT_URI'
 
 # Telegram bot API
 TELEGRAM_TOKEN_ID = 'TOKEN_ID'
+
+# Heroku server URI; is used only in heroku servers
+BASE_URI = 'BASE_URI'

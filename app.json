@@ -11,6 +11,9 @@
     },
     "TELEGRAM_TOKEN_ID": {
       "required": true
+    },
+    "BASE_URI": {
+      "required": true
     }
   },
   "scripts": {

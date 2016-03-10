@@ -4,5 +4,5 @@ import views
 
 
 urlpatterns = [
-    url(r'^(?P<telegram_token>\w+)', views.telehook, name='hook')
+    url(r'^(?P<telegram_token>[\w\W]+)', views.telehook, name='hook')
 ]
