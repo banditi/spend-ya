@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from future.moves.urllib.parse import urlencode
 from yandex_money.api import Wallet
 
-from .models import YaMoney
+from .models import Wallet
 
 try:
     from spend_ya_project.config import MONEY_CLIENT_ID, MONEY_REDIRECT_URI
@@ -39,8 +39,8 @@ def callback(request):
             account_info = wallet.account_info()
 
             if 'account' in account_info:
-                money = YaMoney(account=account_info['account'],
-                                access_token=access_token['access_token'])
+                money = Wallet(account=account_info['account'],
+                               access_token=access_token['access_token'])
                 money.save()
                 return render(request, 'money.html', {
                     'is_success': True
