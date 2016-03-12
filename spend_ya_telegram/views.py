@@ -9,4 +9,5 @@ def telehook(request, telegram_token):
     if telegram_token == TELEGRAM_TOKEN_ID:
         spend_ya_bot.update_queue.put(request.body)
         print request.body
+    print request.body
     return HttpResponse("Msg Received")

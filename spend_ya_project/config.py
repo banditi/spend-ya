@@ -10,7 +10,7 @@ class Config(object):
         """
         try:
             self._dictionary = json.load(open(default))
-        except IOError:
+        except IOError or ValueError:
             self._dictionary = {}
 
     def get(self, key, default=''):

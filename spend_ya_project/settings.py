@@ -15,6 +15,7 @@ from spend_ya_project.config import Config
 
 config = Config()
 DEBUG = bool(config.get('DEBUG', os.environ.get('DEBUG', False)))
+print DEBUG
 BASE_URI = config.get('BASE_URI', os.environ.get('BASE_URI', ''))
 DATABASE_URL = config.get('DATABASE_URL', os.environ.get('DATABASE_URL', ''))
 SECRET_KEY = config.get('SECRET_KEY', os.environ.get('SECRET_KEY', 'secret'))
