@@ -42,14 +42,14 @@ def on_chosen_inline_result(msg):
 
 
 def start_bot():
-    webhookurl = 'https://{host}{path}'.format(host=BASE_URI,
-                                               path=reverse_lazy('hook', kwargs={'telegram_token': TELEGRAM_TOKEN_ID}))
-    print webhookurl
-    bot.setWebhook(webhookurl)
+    # webhookurl = 'https://{host}{path}'.format(host=BASE_URI,
+    # path=reverse_lazy('hook', kwargs={'telegram_token': TELEGRAM_TOKEN_ID}))
+    # print webhookurl
+    # bot.setWebhook(webhookurl)
     print('Bot started working...')
 
 bot.notifyOnMessage({
     'normal': on_chat_message,
     'inline_query': on_inline_query,
     'chosen_inline_result': on_chosen_inline_result
-}, source=update_queue)
+})
