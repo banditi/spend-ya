@@ -1,17 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from future.moves.urllib.parse import urlencode
+from spend_ya_project.settings import MONEY_CLIENT_ID, MONEY_REDIRECT_URI
 from yandex_money.api import Wallet as YaWallet
 
 from .models import Wallet
-
-try:
-    from spend_ya_project.config import MONEY_CLIENT_ID, MONEY_REDIRECT_URI
-except ImportError:
-    import os
-
-    MONEY_CLIENT_ID = os.environ.get('MONEY_CLIENT_ID')
-    MONEY_REDIRECT_URI = os.environ.get('MONEY_REDIRECT_URI')
 
 
 def index(request):
@@ -33,7 +26,7 @@ def callback(request):
 
     if is_success:
         access_token = YaWallet.get_access_token(MONEY_CLIENT_ID, code, MONEY_REDIRECT_URI,
-                                               client_secret=None)
+                                                 client_secret=None)
         if 'access_token' in access_token:
             wallet = YaWallet(access_token=access_token['access_token'])
             account_info = wallet.account_info()

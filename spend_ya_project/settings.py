@@ -11,15 +11,16 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 import os
 import dj_database_url
+from spend_ya_project.config import Config
 
-try:
-    from config import DATABASE_URL, SECRET_KEY, DEBUG
-except ImportError:
-    DEBUG = os.environ.get('DEBUG', False)
-    DATABASE_URL = ''
-    SECRET_KEY = os.environ.get('SECRET_KEY', 'secret')
-
-
+config = Config()
+DEBUG = bool(config.get('DEBUG', os.environ.get('DEBUG', False)))
+BASE_URI = config.get('BASE_URI', os.environ.get('BASE_URI', ''))
+DATABASE_URL = config.get('DATABASE_URL', os.environ.get('DATABASE_URL', ''))
+SECRET_KEY = config.get('SECRET_KEY', os.environ.get('SECRET_KEY', 'secret'))
+TELEGRAM_TOKEN_ID = config.get('TELEGRAM_TOKEN_ID', os.environ.get('TELEGRAM_TOKEN_ID', ''))
+MONEY_CLIENT_ID = config.get('MONEY_CLIENT_ID', os.environ.get('MONEY_CLIENT_ID', ''))
+MONEY_REDIRECT_URI = config.get('MONEY_REDIRECT_URI', os.environ.get('MONEY_REDIRECT_URI', ''))
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))

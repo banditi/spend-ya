@@ -2,14 +2,7 @@ import emoji
 import telepot
 from Queue import Queue
 from django.core.urlresolvers import reverse_lazy
-
-try:
-    from spend_ya_project.config import TELEGRAM_TOKEN_ID, BASE_URI
-except ImportError:
-    import os
-    BASE_URI = os.environ.get('BASE_URI')
-    TELEGRAM_TOKEN_ID = os.environ.get('TELEGRAM_TOKEN_ID')
-
+from spend_ya_project.settings import TELEGRAM_TOKEN_ID, BASE_URI, DEBUG
 
 update_queue = Queue()
 bot = telepot.Bot(TELEGRAM_TOKEN_ID)
@@ -41,14 +34,25 @@ def on_chosen_inline_result(msg):
 
 
 def start_bot():
-    # webhookurl = 'https://{host}{path}'.format(host=BASE_URI,
-    # path=reverse_lazy('hook', kwargs={'telegram_token': TELEGRAM_TOKEN_ID}))
-    # print webhookurl
-    # bot.setWebhook(webhookurl)
+    bot.setWebhook(url='')
+    if not DEBUG:
+        webhookurl = 'https://{host}{path}'.format(
+            host=BASE_URI,
+            path=reverse_lazy('hook', kwargs={'telegram_token': TELEGRAM_TOKEN_ID}))
+        print webhookurl
+        bot.setWebhook(webhookurl)
     print('Bot started working...')
 
-bot.notifyOnMessage({
-    'normal': on_chat_message,
-    'inline_query': on_inline_query,
-    'chosen_inline_result': on_chosen_inline_result
-})
+
+if not DEBUG:
+    bot.notifyOnMessage({
+        'normal': on_chat_message,
+        'inline_query': on_inline_query,
+        'chosen_inline_result': on_chosen_inline_result,
+    }, source=update_queue)
+else:
+    bot.notifyOnMessage({
+        'normal': on_chat_message,
+        'inline_query': on_inline_query,
+        'chosen_inline_result': on_chosen_inline_result,
+    })
