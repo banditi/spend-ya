@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from future.moves.urllib.parse import urlencode
-from yandex_money.api import Wallet
+from yandex_money.api import Wallet as YaWallet
 
 from .models import Wallet
 
@@ -16,7 +16,7 @@ except ImportError:
 
 def index(request):
     scope = ['account-info', 'operation-history']
-    auth_url = '{}&{}'.format(Wallet.build_obtain_token_url(MONEY_CLIENT_ID, MONEY_REDIRECT_URI, scope),
+    auth_url = '{}&{}'.format(YaWallet.build_obtain_token_url(MONEY_CLIENT_ID, MONEY_REDIRECT_URI, scope),
                               urlencode({
                                   "response_type": 'code'
                               }))
@@ -32,10 +32,10 @@ def callback(request):
         code = request.GET.get('error_description') or 'Error!'
 
     if is_success:
-        access_token = Wallet.get_access_token(MONEY_CLIENT_ID, code, MONEY_REDIRECT_URI,
+        access_token = YaWallet.get_access_token(MONEY_CLIENT_ID, code, MONEY_REDIRECT_URI,
                                                client_secret=None)
         if 'access_token' in access_token:
-            wallet = Wallet(access_token=access_token['access_token'])
+            wallet = YaWallet(access_token=access_token['access_token'])
             account_info = wallet.account_info()
 
             if 'account' in account_info:
