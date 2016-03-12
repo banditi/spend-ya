@@ -4,8 +4,7 @@ from Queue import Queue
 from django.core.urlresolvers import reverse_lazy
 
 try:
-    from spend_ya_project.config import TELEGRAM_TOKEN_ID
-    from spend_ya_project.config import BASE_URI
+    from spend_ya_project.config import TELEGRAM_TOKEN_ID, BASE_URI
 except ImportError:
     import os
     BASE_URI = os.environ.get('BASE_URI')
