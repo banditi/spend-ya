@@ -42,3 +42,9 @@ def callback(request):
     return render(request, 'money.html', {
         'is_success': False
     })
+
+
+def get_yamoney_history(uid, options):
+    wallet = Wallet.objects.get(user__exact=uid)
+    yawallet = YaWallet(access_token=wallet.access_token)
+    return yawallet.operation_history(options=options)
